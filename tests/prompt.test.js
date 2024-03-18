@@ -41,14 +41,14 @@ describe("userPrompt", () => {
   });
 
   it("should handle exception", async () => {
-    const mockedExpection = new Error("Mocked Exception");
-    //mocking userPrompt response promise to reject once with mockederror
-    userPrompt.mockRejectedValue(mockedExpection);
+    const userInput = "abc"; //user input is a string or any other type
+    const mockedException = new Error("Input provided is not a number");
+    userPrompt.mockRejectedValueOnce(mockedException);
 
     await userPrompt(userPromptArgs);
 
     expect(userPrompt).toHaveBeenCalledTimes(1);
-    expect(userPrompt).toRejectWith(mockedExpection);
+    expect(log).toHaveBeenCalledWith(mockedException);
   });
 
   it("should call getTodos function and log the expected ouput", async () => {
